@@ -1,3 +1,5 @@
+# Implementing React.js to this branch
+
 # Manager
 Manager App Quick walk-through:
 * Worker (normal user) can only view their own logs.
