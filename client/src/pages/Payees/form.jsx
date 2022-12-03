@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
 import { createPayee, findPayee, updatePayee } from "../../features/Payees/payeesSlice";
+
+import { useTranslation } from "react-i18next";
+
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const PayeeForm = () => {
+    const { t, i18n } = useTranslation();
     // payee id
     let { id } = useParams();
     document.title = id ? "Edit Payee" : "New Payee";
@@ -72,7 +76,7 @@ const PayeeForm = () => {
                                 <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
                             }
                         </span>
-                        {id ? "Edit Payee" : "New Payee"}
+                        {id ? `${t("editPayee")}` : `${t("newPayee")}`}
                     </p>
                     <div className="feedback">
                         {msg && <div className="message" id="msg">
@@ -87,7 +91,7 @@ const PayeeForm = () => {
                         </div>}
                         {error && <div className="message" id="error">
                             <p className="error">
-                                Payee already Defined
+                                {t("payeeDef")}
                             </p>
                         </div>}
                     </div>
@@ -95,7 +99,7 @@ const PayeeForm = () => {
                 <form autoComplete="off" className="form" onSubmit={handleSubmit}>
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="name">Payee Name</label></p></span>
+                            <span><p><label htmlFor="name">{t("payeeName")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="name" name="name" type="text" value={data.name} required />
                             </div>
@@ -104,7 +108,7 @@ const PayeeForm = () => {
                     <hr />
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="email">Email</label></p></span>
+                            <span><p><label htmlFor="email">{t("email")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="email" name="email" type="text" value={data.email} />
                             </div>
@@ -112,7 +116,7 @@ const PayeeForm = () => {
                     </div>
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="phoneNumber">Phone Number</label></p></span>
+                            <span><p><label htmlFor="phoneNumber">{t("phoneNumber")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="phoneNumber" name="phoneNumber" type="text" value={data.phoneNumber} />
                             </div>
@@ -122,10 +126,10 @@ const PayeeForm = () => {
                     <div className="notes_row">
                         <div className="input_box_container">
                             <span><p>
-                                <label htmlFor="extraNotes">Extra Notes</label>
+                                <label htmlFor="extraNotes">{t("extraNotes")}</label>
                             </p></span>
                             <div className="input_box">
-                                <textarea type="text" id="extraNotes" name="extraNotes" value={data.extraNotes} onChange={handleInfoChange} maxLength="200" />
+                                <textarea type="text" id="extraNotes" name="extraNotes" value={data.extraNotes} onChange={handleInfoChange} maxLength="150" />
                             </div>
                         </div>
                     </div>
@@ -133,7 +137,7 @@ const PayeeForm = () => {
                         <div></div>
                         <div></div>
                         <button type="submit" className="button primary">
-                            {id ? "Edit" : "Add"}
+                            {id ? `${t("edit")}` : `${t("add")}`}
                         </button>
                     </div>
                 </form>
@@ -143,21 +147,3 @@ const PayeeForm = () => {
 }
 
 export default PayeeForm;
-
-
-{/* <section className="container">
-    <div className="login-container">
-        <div className="circle circle-one"></div>
-        <div className="form-container">
-            <h1 className="opacity">{id && data ? `Edit - ${data.name}` : "New Payee"}</h1>
-            <form onSubmit={handleSubmit} autoComplete="off" >
-                {message && <div>{message}</div>}
-                {error && <div>{error}</div>}
-                <input onChange={handleChange} name="name" type="text" placeholder="Name" value={data.name} required />
-                <button type="submit" className="opacity">{id ? "Edit" : "Add"}</button>
-            </form>
-        </div>
-        <div className="circle circle-two"></div>
-    </div>
-    <div className="theme-btn-container"></div>
-</section> */}

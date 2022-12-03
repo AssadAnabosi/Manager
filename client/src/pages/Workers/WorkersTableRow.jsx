@@ -1,14 +1,21 @@
 import React, { useContext } from "react"
 import { UserContext } from "../../App.jsx"
+import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { deleteWorker } from "../../features/Workers/workersSlice";
-import { Link } from "react-router-dom";
+
+import { useTranslation } from "react-i18next";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import "./WorkersTableRow.scss";
+
 function Row(props) {
+    const { t, i18n } = useTranslation();
     const { user } = useContext(UserContext);
     const { flag, setFlag } = props;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const { _id, name, username, phoneNumber, email, accessLevel } = props.worker;
 
@@ -22,7 +29,6 @@ function Row(props) {
                 <div className="main_column">
                     <div className="icon">
                         <FontAwesomeIcon icon="fa-solid fa-address-card" size="2x" />
-                        {/* <i className="fa-2x fa-solid fa-address-card"></i> */}
                     </div>
                     <div className="stacked_cell">
                         <p className="large">{name}</p>
@@ -33,7 +39,7 @@ function Row(props) {
                     {accessLevel === "User" ?
                         <div className="tag user_tag">
                             <p id="user">
-                                {accessLevel}
+                                {t(accessLevel)}
                             </p>
                         </div>
                         :
@@ -41,7 +47,7 @@ function Row(props) {
                     {accessLevel === "Supervisor" ?
                         <div className="tag super_tag">
                             <p id="super">
-                                {accessLevel}
+                                {t(accessLevel)}
                             </p>
                         </div>
                         :
@@ -49,7 +55,7 @@ function Row(props) {
                     {accessLevel === "Spectator" ?
                         <div className="tag spec_tag">
                             <p id="spec">
-                                {accessLevel}
+                                {t(accessLevel)}
                             </p>
                         </div>
                         :
@@ -57,7 +63,7 @@ function Row(props) {
                     {accessLevel === "Administrator" ?
                         <div className="tag admin_tag">
                             <p id="admin">
-                                {accessLevel}
+                                {t(accessLevel)}
                             </p>
                         </div>
                         :
@@ -73,16 +79,13 @@ function Row(props) {
             <div className="flex">
                 {(user.accessLevel !== "User" && user.accessLevel !== "Spectator") ?
                     <div className="actions_column">
-                        {/* <Link to={`/workers/${_id}`}><i class="fa-lg fa-solid fa-eye"></i></Link> */}
                         <Link to={`/workers/${_id}/edit`}>
-                        <FontAwesomeIcon icon="fa-solid fa-pen" size="lg"/>
-                            {/* <i className="fa-lg fa-solid fa-pen"></i> */}
-                            </Link>
+                            <FontAwesomeIcon icon="fa-solid fa-pen" size="lg" />
+                        </Link>
                         {(user.accessLevel === "Administrator") ?
                             <Link to="/workers/" onClick={deleteThisWorker}>
-                                <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg"/>
-                                {/* <i className="fa-lg fa-solid fa-trash-can"></i> */}
-                                </Link>
+                                <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg" />
+                            </Link>
                             :
                             null}
                     </div>

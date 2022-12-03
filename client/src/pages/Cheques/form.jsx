@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
 import { fetchPayees } from "../../features/Payees/payeesSlice";
 import { findCheque, createCheque, updateCheque } from "../../features/Cheques/chequesSlice";
+
+import { useTranslation } from "react-i18next";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ChequeForm = () => {
+    const { t, i18n } = useTranslation();
     // cheque id
     let { id } = useParams();
     document.title = id ? "Manager - Edit Cheque" : "Manager - New Cheque";
@@ -106,7 +109,7 @@ const ChequeForm = () => {
                                 <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
                             }
                         </span>
-                        {id ? `Edit Cheque #${data.serial}` : "New Cheque"}
+                        {id ? `${t("editCheque")} #${data.serial}` : `${t("newCheque")}`}
                     </p>
                     <div className="feedback">
                         {msg && <div className="message" id="msg">
@@ -121,7 +124,7 @@ const ChequeForm = () => {
                         </div>}
                         {error && <div className="message" id="error">
                             <p className="error">
-                                Serial Number Already used
+                                {t("serialTaken")}
                             </p>
                         </div>}
                     </div>
@@ -129,13 +132,13 @@ const ChequeForm = () => {
                 <form autoComplete="off" className="form" onSubmit={handleSubmit}>
                     <div className="two_items_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="dueDate">Due Date</label></p></span>
+                            <span><p><label htmlFor="dueDate">{t("dueDate")}</label></p></span>
                             <div className="input_box">
                                 <input type="date" id="dueDate" name="dueDate" value={data.dueDate} onChange={handleInfoChange} required />
                             </div>
                         </div>
                         <div className="input_box_container">
-                            <span><p><label htmlFor="serial">Serial Number</label></p></span>
+                            <span><p><label htmlFor="serial">{t("serial")}</label></p></span>
                             <div className="input_box">
                                 <input type="text" id="serial" name="serial" value={data.serial} onChange={handleInfoChange} required />
                             </div>
@@ -145,11 +148,11 @@ const ChequeForm = () => {
                     <div className="two_items_row">
                         <div className="input_box_container">
                             <span><p>
-                                <label htmlFor="payee">Payee{cheques?.isDeleted ? ` - Deleted Payee` : ``}</label>
+                                <label htmlFor="payee">{t("payee")}{cheques?.isDeleted ? ` - ${t("deletedPayee")}` : ``}</label>
                             </p></span>
                             <div className="input_box">
                                 <select name="payee" id="payee" onChange={handleInfoChange} value={data.payee} >
-                                    <option disabled hidden value="">Choose...</option>
+                                    <option disabled hidden value="">{t("choose")}</option>
                                     {
                                         payees.map(createOptions)
                                     }
@@ -157,7 +160,7 @@ const ChequeForm = () => {
                             </div>
                         </div>
                         <div className="input_box_container">
-                            <span><p><label htmlFor="value">Value</label></p></span>
+                            <span><p><label htmlFor="value">{t("value")}</label></p></span>
                             <div className="icon_input">
                                 <span>
                                     <FontAwesomeIcon icon="fa-solid fa-shekel-sign" size="lg" />
@@ -169,20 +172,20 @@ const ChequeForm = () => {
                     <hr />
                     <div className="notes_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="description">Extra Notes</label></p></span>
+                            <span><p><label htmlFor="description">{t("extraNotes")}</label></p></span>
                             <div className="input_box">
-                                <textarea type="text" id="description" name="description" value={data.description} onChange={handleInfoChange} maxLength="200" />
+                                <textarea type="text" id="description" name="description" value={data.description} onChange={handleInfoChange} maxLength="150" />
                             </div>
                         </div>
                     </div>
                     <div className="submit_row">
                         <div className="checkbox_row">
                             <input type="checkbox" name="isCancelled" id="isCancelled" checked={data.isCancelled ? "checked" : ""} onChange={toggleCancelled} />
-                            <p><label htmlFor="isCancelled">Cancelled</label></p>
+                            <p><label htmlFor="isCancelled">{t("cancelled")}</label></p>
                         </div>
                         <div></div>
                         <button type="submit" className="button primary">
-                            {id ? "Edit" : "Add"}
+                            {id ? `${t("edit")}` : `${t("add")}`}
                         </button>
                     </div>
                 </form>

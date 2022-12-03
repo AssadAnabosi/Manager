@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { UserContext } from "../../App.jsx";
 import { useParams } from "react-router-dom";
 
-import { UserContext } from "../../App.jsx";
-
+import { useDispatch, useSelector } from "react-redux";
 import { createWorker, findWorker, updateWorker } from "../../features/Workers/workersSlice";
 import { setUserPermissions, setUserPassword } from "../../features/Users/userSlice";
 
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -16,6 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./WorkersForm.scss";
 
 const WorkerForm = () => {
+    const { t, i18n } = useTranslation();
+    // worker id
     let { id } = useParams();
     const { user } = useContext(UserContext);
 
@@ -42,7 +44,6 @@ const WorkerForm = () => {
     const [password, setPassword] = useState(passwordsInitialState);
 
     const [msg, setMessage] = useState("");
-    const [usernameMessage, setUsernameMessage] = useState("");
     const [available, setAvailable] = useState(true);
     const [inValidPasswords, setInValidPasswords] = useState(false);
 
@@ -89,10 +90,8 @@ const WorkerForm = () => {
             const url = "/api/checkUsername";
             await axios.post(url, username).then((res) => {
                 setAvailable(true);
-                setUsernameMessage("Username is available");
             }).catch((error) => {
                 setAvailable(false);
-                setUsernameMessage("Username already taken");
             })
         }
     };
@@ -103,7 +102,7 @@ const WorkerForm = () => {
             return true;
         }
         else {
-            setMessage("Password fields are not the same!");
+            setMessage(t("notSamePassword"));
             setInValidPasswords(true);
             return false;
         }
@@ -131,7 +130,6 @@ const WorkerForm = () => {
         setData({ ...initialState });
         setPassword({ ...passwordsInitialState });
         setMessage("");
-        setUsernameMessage("");
         setAvailable(true);
         setInValidPasswords(false);
         document.getElementById("username").value = "";
@@ -158,7 +156,7 @@ const WorkerForm = () => {
                 clearState();
             }
             else {
-                setMessage("Double Check your inputs!");
+                setMessage(t("doubleCheck"));
             }
         }
     };
@@ -195,7 +193,7 @@ const WorkerForm = () => {
                             :
                             <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
                         }</span>
-                        {id ? "Edit Worker" : "New Worker"}
+                        {id ? `${t("editWorker")}` : `${t("newWorker")}`}
                     </p>
                     <div className="feedback">
                         {msg && <div className="message" id="msg">
@@ -215,7 +213,7 @@ const WorkerForm = () => {
                         </div>}
                         {error && <div className="message" id="error">
                             <p className="error">
-                                Duplicate Key
+                                {t("dupKey")}
                             </p>
                         </div>}
                     </div>
@@ -223,7 +221,7 @@ const WorkerForm = () => {
                 <form autoComplete="off" className="form" onSubmit={updateUserInfo}>
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="name">Worker Name</label></p></span>
+                            <span><p><label htmlFor="name">{t("workerName")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="name" name="name" type="text" value={data.name} />
                             </div>
@@ -232,7 +230,7 @@ const WorkerForm = () => {
                     <hr />
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="email">Email Address</label></p></span>
+                            <span><p><label htmlFor="email">{t("email")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="email" name="email" type="text" value={data.email} />
                             </div>
@@ -240,7 +238,7 @@ const WorkerForm = () => {
                     </div>
                     <div className="input_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="phoneNumber">Phone Number</label></p></span>
+                            <span><p><label htmlFor="phoneNumber">{t("phoneNumber")}</label></p></span>
                             <div className="input_box">
                                 <input onChange={handleInfoChange} id="phoneNumber" name="phoneNumber" type="text" value={data.phoneNumber} />
                             </div>
@@ -249,43 +247,37 @@ const WorkerForm = () => {
                     <hr />
                     <div className="two_inputs_equal_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="email">Username</label></p></span>
+                            <span><p><label htmlFor="username">{t("username")}</label></p></span>
                             <div className="username_box">
-                                <div className="icon_input" id={`${!available ? "invalid" : ""}`}>
+                                <div className="icon_input" id={`${!available ? "invalid" : "valid"}`}>
                                     <span>
                                         <FontAwesomeIcon icon="fa-solid fa-at" size="lg" />
                                     </span>
                                     {!id ?
                                         <>
                                             <input onChange={handleInfoChange} id="username" name="username" type="text" onBlur={checkUsername} required />
-                                            {usernameMessage !== "" ?
-                                                available ?
-                                                    <span className="feedback valid">
-                                                        <FontAwesomeIcon icon="fa-solid fa-circle-check" />
-                                                    </span>
-                                                    :
-                                                    <span className="feedback invalid">
-                                                        <FontAwesomeIcon icon="fa-solid fa-circle-xmark" />
-                                                    </span>
+                                            {available ?
+                                                <span className="feedback valid">
+                                                    <FontAwesomeIcon icon="fa-solid fa-circle-check" />
+                                                </span>
                                                 :
-                                                <div className="feedback">
-
-                                                </div>
+                                                <span className="feedback invalid">
+                                                    <FontAwesomeIcon icon="fa-solid fa-circle-xmark" />
+                                                </span>
                                             }
                                         </>
                                         :
                                         <p>{username}</p>
                                     }
                                 </div>
-                                <p className="feedback">{usernameMessage}</p>
                             </div>
                         </div>
                         {(id && user?.accessLevel === "Administrator") ?
                             <div className="input_box_container">
-                                <span><p><label htmlFor="permission">Access Level</label></p></span>
+                                <span><p><label htmlFor="permission">{t("accessLevel")}</label></p></span>
                                 <div className="slider_container">
                                     <p>
-                                        {permission}
+                                        {t(permission)}
                                     </p>
                                     <input type="range" name="accessLevel" id="permission" className="slider" min={0} max={3} step={1} value={permissionsArray.indexOf(permission)} onChange={handlePermissionChange} />
                                 </div>
@@ -300,13 +292,13 @@ const WorkerForm = () => {
                             {/* New User password fields */}
                             <div className="two_inputs_equal_row">
                                 <div className="input_box_container">
-                                    <span><p><label htmlFor="password">Password</label></p></span>
+                                    <span><p><label htmlFor="password">{t("password")}</label></p></span>
                                     <div className="input_box" id={`${inValidPasswords ? "invalid" : ""}`}>
                                         <input onChange={handleInfoChange} id="password" name="password" type="password" />
                                     </div>
                                 </div>
                                 <div className="input_box_container">
-                                    <span><p><label htmlFor="confirmPassword">Confirm Password</label></p></span>
+                                    <span><p><label htmlFor="confirmPassword">{t("confirmPassword")}</label></p></span>
                                     <div className="input_box" id={`${inValidPasswords ? "invalid" : ""}`}>
                                         <input onChange={handleInfoChange} id="confirmPassword" name="confirmPassword" type="password" onBlur={checkPassword} />
                                     </div>
@@ -319,13 +311,13 @@ const WorkerForm = () => {
                                 {/* Update User password fields */}
                                 <div className="two_inputs_equal_row">
                                     <div className="input_box_container">
-                                        <span><p><label htmlFor="password">New Password</label></p></span>
+                                        <span><p><label htmlFor="password">{t("password")}</label></p></span>
                                         <div className="input_box" id={`${inValidPasswords ? "invalid" : ""}`}>
                                             <input type="password" id="password" name="password" onChange={handlePasswordChange} />
                                         </div>
                                     </div>
                                     <div className="input_box_container">
-                                        <span><p><label htmlFor="confirmPassword">Confirm New Password</label></p></span>
+                                        <span><p><label htmlFor="confirmPassword">{t("confirmPassword")}</label></p></span>
                                         <div className="input_box" id={`${inValidPasswords ? "invalid" : ""}`}>
                                             <input type="password" id="confirmPassword" name="confirmPassword" onChange={handlePasswordChange} onBlur={checkPassword} />
                                         </div>
@@ -341,17 +333,17 @@ const WorkerForm = () => {
 
                     <div className="submit_row">
                         {(id && user?.accessLevel === "Administrator") ? <button className="button primary" onClick={updateUserPassword}>
-                            Change Password
+                            {t("updatePassword")}
                         </button> :
                             <div></div>
                         }
                         {(id && user?.accessLevel === "Administrator") ? <button className="button primary" onClick={updateUserPermissions}>
-                            Update Permissions
+                            {t("updatePermissions")}
                         </button> :
                             <div></div>
                         }
                         <button className="button primary" type="submit">
-                            {id ? "Edit" : "Add"}
+                            {id ? `${t("edit")}` : `${t("add")}`}
                         </button>
                     </div>
                 </form>

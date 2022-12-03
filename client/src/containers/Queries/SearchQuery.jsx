@@ -1,8 +1,14 @@
 import React from "react"
+
+import { useTranslation } from "react-i18next";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./Queries.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Queries = ({ handleQueriesChange }) => {
+    const {t, i18n} = useTranslation();
+    
     return (
         <>
             <div className="queries_container" id="end">
@@ -10,7 +16,7 @@ const Queries = ({ handleQueriesChange }) => {
                     <span>
                     <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" size="lg"/>
                         </span>
-                    <input type="text" name="search" placeholder="Search" onChange={handleQueriesChange} />
+                    <input type="text" name="search" placeholder={t("search")} onChange={handleQueriesChange} />
                 </div>
             </div>
         </>

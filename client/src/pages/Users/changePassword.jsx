@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../App.jsx";
+
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
 import {
     Container,
     FormWrap,
@@ -11,11 +15,9 @@ import {
     FormButton,
     Text
 } from "./Elements";
-import { FooterP } from "../Landing/LandingPageElements";
-import { UserContext } from "../../App.jsx";
-import { useContext } from "react";
 
 const ChangePassword = () => {
+    const { t, i18n } = useTranslation();
     const year = new Date().getFullYear();
     const {user} = useContext(UserContext)
     document.title = "Manager - Change Password";
@@ -37,7 +39,7 @@ const ChangePassword = () => {
             return true;
         }
         else {
-            setMessage("Password feilds are not the same!");
+            setMessage(t("notSamePassword"));
             return false;
         }
     }
@@ -70,7 +72,7 @@ const ChangePassword = () => {
             }
         }
         else {
-            setMessage("Double check your inputs!");
+            setMessage(t("doubleCheck"));
         }
     };
     return (
@@ -79,14 +81,14 @@ const ChangePassword = () => {
                 <FormWrap>
                     <FormContent>
                         <Form onSubmit={handleSubmit}>
-                            <FormH1>Change Password</FormH1>
-                            <FormLabel htmlFor="oldPassword">Old Password</FormLabel>
+                            <FormH1>{t("changePassword")}</FormH1>
+                            <FormLabel htmlFor="oldPassword">{t("currentPassword")}</FormLabel>
                             <FormInput type="password" name="oldPassword" onChange={handleChange}></FormInput>
-                            <FormLabel htmlFor="password">New Password</FormLabel>
+                            <FormLabel htmlFor="password">{t("newPassword")}</FormLabel>
                             <FormInput type="password" name="password" onChange={handleChange}></FormInput>
-                            <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+                            <FormLabel htmlFor="confirmPassword">{t("confirmNewPassword")}</FormLabel>
                             <FormInput type="password" name="confirmPassword" onChange={handleChange}></FormInput>
-                            <FormButton>Change</FormButton>
+                            <FormButton>{t("change")}</FormButton>
                             {message &&
                                 <Text>{message}</Text>
                             }
@@ -94,11 +96,6 @@ const ChangePassword = () => {
                     </FormContent>
                 </FormWrap>
             </Container>
-            <FooterP>&copy; Assad Anabosi {year}
-                {user &&
-                    <span> - Currently logged in as {user.username}</span>
-                }
-            </FooterP>
         </>
     )
 }

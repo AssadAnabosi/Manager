@@ -1,28 +1,49 @@
-import React, { useContext } from "react"
-import "./Sidebar.scss"
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import React, { useContext, useEffect } from "react"
 import { UserContext } from "../../App.jsx"
+import { NavLink } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
 import { logoutUser } from "../../features/Users/userSlice";
 
+import { useTranslation } from "react-i18next";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import "./Sidebar.scss"
 
 const Navbar = (props) => {
+    const {t, i18n} = useTranslation();
     const { user } = useContext(UserContext);
     const year = new Date().getFullYear();
+
     const dispatch = useDispatch();
     const logout = () => {
         dispatch(logoutUser());
     };
+
+    const setArabic = () => {
+        i18n.changeLanguage("ar");
+    }
+
+    const setEnglish = () => {
+        i18n.changeLanguage("en");
+    }
     return (
         <>
             <div className="nav">
                 <div className="navbar_container">
                     <div className="upper_container">
-                        <h1 className="nav_logo">
-                            Manager
-                        </h1>
+                        <div className="nav_logo">
+                            <h1>Manager</h1>
+                            <div className="lang">
+                                <button className={i18n.language === "ar" ? "active" : ""} onClick={setArabic}>
+                                    AR
+                                </button>
+                                <button className={i18n.language === "en" ? "active" : ""} onClick={setEnglish}>
+                                    EN
+                                </button>
+                            </div>
+                        </div>
                         <div className="nav_menu">
                             {
                                 user && <>
@@ -31,25 +52,25 @@ const Navbar = (props) => {
                                             <>
                                                 <NavLink className="nav_link" to="/bills"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-receipt" size="lg" />
-                                                </span> Bills</NavLink>
+                                                </span>{t("bills")}</NavLink>
                                                 <NavLink className="nav_link" to="/workers"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-users-gear" size="lg" />
-                                                </span> Workers</NavLink>
+                                                </span> {t("workers")}</NavLink>
                                                 <NavLink className="nav_link" to="/logs"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-box-archive" size="lg" />
-                                                </span> Logs</NavLink>
+                                                </span> {t("logs")}</NavLink>
                                                 <NavLink className="nav_link" to="/payees"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-user-tag" size="lg" />
-                                                </span> Payees</NavLink>
+                                                </span> {t("payees")}</NavLink>
                                                 <NavLink className="nav_link" to="/cheques"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-money-check-dollar" size="lg" />
-                                                </span> Cheques</NavLink>
+                                                </span> {t("cheques")}</NavLink>
                                             </>
                                             :
                                             <>
                                                 <NavLink className="nav_link" to="/logs"><span>
                                                     <FontAwesomeIcon icon="fa-solid fa-box-archive" size="lg" />
-                                                </span> My Logs</NavLink>
+                                                </span> {t("myLogs")}</NavLink>
                                             </>
                                     }
 
@@ -64,10 +85,10 @@ const Navbar = (props) => {
                                 <>
                                     <NavLink className="nav_link" to="/changePassword"><span>
                                         <FontAwesomeIcon icon="fa-solid fa-key" size="lg" />
-                                    </span> Change Password</NavLink>
+                                    </span> {t("changePassword")}</NavLink>
                                     <NavLink className="nav_link" onClick={logout} to="/"><span>
                                         <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" size="lg" />
-                                    </span> Logout</NavLink>
+                                    </span> {t("logout")}</NavLink>
                                     <div className="user_box">
                                         <div className="user_icon">
                                             <span>

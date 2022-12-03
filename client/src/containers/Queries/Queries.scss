@@ -18,6 +18,8 @@
 .date_box_container {
     display: flex;
     flex-direction: column;
+    border: 2px solid transparent;
+    border-radius: 10px;
 
     span {
         font-weight: 600;
@@ -28,7 +30,6 @@
 
     .date_box {
         height: 50px;
-        // border: 2px solid var(--gray-color);
         border-radius: 10px;
         background-color: var(--highlight-color);
         width: 200px;

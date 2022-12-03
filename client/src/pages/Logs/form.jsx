@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
 import { fetchWorkers } from "../../features/Workers/workersSlice";
 import { findLog, createLog, updateLog } from "../../features/Logs/logsSlice";
+
+import { useTranslation } from "react-i18next";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -12,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./LogsForm.scss";
 
 const LogForm = () => {
+    const {t, i18n} = useTranslation();
     // log id
     let { id } = useParams();
     document.title = id ? "Manager - Edit Log" : "Manager - New Log";
@@ -116,7 +119,7 @@ const LogForm = () => {
                                 <FontAwesomeIcon icon="fa-solid fa-plus" size="lg" />
                             }
                         </span>
-                        {id ? "Edit Log" : "New Log"}</p>
+                        {id ? `${t("editLog")}` : `${t("newLog")}`}</p>
                     <div className="feedback">
                         {msg && <div className="message" id="msg">
                             <p>
@@ -130,7 +133,7 @@ const LogForm = () => {
                         </div>}
                         {error && <div className="message" id="error">
                             <p className="error">
-                                Duplicate Key
+                                {t("dupKey")}
                             </p>
                         </div>}
                     </div>
@@ -138,19 +141,19 @@ const LogForm = () => {
                 <form autoComplete="off" className="form" onSubmit={handleSubmit}>
                     <div className="date_time_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="date">Date</label></p></span>
+                            <span><p><label htmlFor="date">{t("date")}</label></p></span>
                             <div className="input_box">
                                 <input type="date" id="date" name="date" value={data.date} onChange={handleInfoChange} />
                             </div>
                         </div>
                         <div className="input_box_container">
-                            <span><p><label htmlFor="startingTime">Started</label></p></span>
+                            <span><p><label htmlFor="startingTime">{t("started")}</label></p></span>
                             <div className="input_box">
                                 <input type="time" id="startingTime" name="startingTime" onChange={handleInfoChange} value={data.startingTime} />
                             </div>
                         </div>
                         <div className="input_box_container">
-                            <span><p><label htmlFor="finishingTime">Finished</label></p></span>
+                            <span><p><label htmlFor="finishingTime">{t("finished")}</label></p></span>
                             <div className="input_box">
                                 <input type="time" id="finishingTime" name="finishingTime" onChange={handleInfoChange} value={data.finishingTime} />
                             </div>
@@ -159,11 +162,11 @@ const LogForm = () => {
                     <hr />
                     <div className="two_items_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="Worker">Worker</label></p></span>
+                            <span><p><label htmlFor="Worker">{t("worker")}</label></p></span>
                             <div className="input_box">
                                 {!id ?
                                     <select id="worker" name="worker" onChange={handleInfoChange} value={data.worker} required>
-                                        <option disabled hidden value="">Choose...</option>
+                                        <option disabled hidden value="">{t("choose")}</option>
                                         {
                                             workers.map(createOptions)
                                         }
@@ -174,7 +177,7 @@ const LogForm = () => {
                             </div>
                         </div>
                         <div className="input_box_container">
-                            <span><p><label htmlFor="payment">Payment</label></p></span>
+                            <span><p><label htmlFor="payment">{t("payment")}</label></p></span>
                             <div className="icon_input">
                                 <span>
                                     <FontAwesomeIcon icon="fa-solid fa-shekel-sign" size="lg" />
@@ -186,20 +189,20 @@ const LogForm = () => {
                     <hr />
                     <div className="notes_row">
                         <div className="input_box_container">
-                            <span><p><label htmlFor="extraNotes">Extra Notes</label></p></span>
+                            <span><p><label htmlFor="extraNotes">{t("extraNotes")}</label></p></span>
                             <div className="input_box">
-                                <textarea type="text" id="extraNotes" name="extraNotes" value={data.extraNotes} onChange={handleInfoChange} maxLength="200" />
+                                <textarea type="text" id="extraNotes" name="extraNotes" value={data.extraNotes} onChange={handleInfoChange} maxLength="150" />
                             </div>
                         </div>
                     </div>
                     <div className="submit_row">
                         <div className="checkbox_row">
                             <input type="checkbox" id="isAbsence" name="isAbsence" checked={data.isAbsence ? "checked" : ""} onChange={toggleAbsence} />
-                            <p><label htmlFor="isAbsence">Absence</label></p>
+                            <p><label htmlFor="isAbsence">{t("absence")}</label></p>
                         </div>
                         <div></div>
                         <button type="submit" className="button primary">
-                            {id ? "Edit" : "Add"}
+                            {id ? `${t("edit")}` : `${t("add")}`}
                         </button>
                     </div>
                 </form>
