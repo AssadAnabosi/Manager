@@ -83,6 +83,9 @@ export const FormInput = styled.input`
     margin-bottom: 32px;
     border: none;
     border-radius: 4px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--primary-color)
 `;
 
 export const FormButton = styled.button`

@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/Users/userSlice";
+
+import { useTranslation } from "react-i18next";
+
 import {
     Container,
     FormWrap,
@@ -12,10 +18,8 @@ import {
     Text
 } from "./Elements";
 
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../features/Users/userSlice";
-
 const Login = () => {
+    const { t, i18n } = useTranslation();
     document.title = "Manager - Login";
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -58,7 +62,7 @@ const Login = () => {
             }
         }
         else {
-            setMessage("All feilds are required!");
+            setMessage(t("allFieldsReq"));
         }
     };
     return (
@@ -67,12 +71,12 @@ const Login = () => {
                 <FormWrap>
                     <FormContent>
                         <Form onSubmit={handleSubmit}>
-                            <FormH1>Login to your acount</FormH1>
-                            <FormLabel htmlFor="username">Username</FormLabel>
+                            <FormH1>{t("loginTitle")}</FormH1>
+                            <FormLabel htmlFor="username">{t("username")}</FormLabel>
                             <FormInput type="text" name="username" onChange={handleChange}></FormInput>
-                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormLabel htmlFor="password">{t("password")}</FormLabel>
                             <FormInput type="password" name="password" onChange={handleChange}></FormInput>
-                            <FormButton>Login</FormButton>
+                            <FormButton>{t("login")}</FormButton>
                             {message &&
                                 <Text>{message}</Text>
                             }

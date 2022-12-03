@@ -1,11 +1,16 @@
 import React, { useContext } from "react"
 import { UserContext } from "../../App.jsx"
+import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { deleteLog } from "../../features/Logs/logsSlice";
-import { Link } from "react-router-dom";
+
+import { useTranslation } from "react-i18next";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Row(props) {
+    const { t, i18n } = useTranslation();
     const { user } = useContext(UserContext);
     const dispatch = useDispatch()
     const { flag, setFlag } = props;
@@ -14,7 +19,19 @@ function Row(props) {
     const name = props.name;
     let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     let day = new Date(date).getDay();
-    let dateString = new Date(date).toLocaleDateString();
+    let dateString = formatDate(new Date(date));
+
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return [
+            padTo2Digits(date.getDate()),
+            padTo2Digits(date.getMonth() + 1),
+            date.getFullYear(),
+        ].join('/');
+    }
 
     const deleteThisLog = () => {
         dispatch(deleteLog(_id));
@@ -26,18 +43,16 @@ function Row(props) {
                 <div className="main_column">
                     <div className="icon">
                         <FontAwesomeIcon icon="fa-solid fa-clipboard-user" size="2x" />
-                        {/* <i className="fa-2x fa-solid fa-clipboard-user"></i> */}
                     </div>
                     <div className="stacked_cell">
                         <p className="large">{name}</p>
-                        <p className="small">{`${days[day]}, ${dateString}`}</p>
+                        <p className="small">{`${t(days[day])}, ${dateString}`}</p>
                     </div>
                 </div>
                 <div className="tag_column">
                     {isAbsence ?
                         <div className="tag true">
                             <p id="true">
-                                {/* <i className="fa-solid fa-xmark"></i> */}
                                 <FontAwesomeIcon icon="fa-solid fa-xmark" size="lg" />
                             </p>
                         </div>
@@ -45,7 +60,6 @@ function Row(props) {
                         <div className="tag false">
                             <p id="false">
                                 <FontAwesomeIcon icon="fa-solid fa-check" size="lg" />
-                                {/* <i className="fa-solid fa-check"></i> */}
                             </p>
                         </div>
                     }
@@ -65,11 +79,9 @@ function Row(props) {
                     <div className="actions_column">
                         <Link to={`/logs/${_id}/edit`}>
                             <FontAwesomeIcon icon="fa-solid fa-pen" size="lg" />
-                            {/* <i className="fa-lg fa-solid fa-pen"></i> */}
                         </Link>
                         <Link to="/logs/" onClick={deleteThisLog}>
-                        <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg"/>
-                            {/* <i className="ga-lg fa-solid fa-trash-can"></i> */}
+                            <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg" />
                         </Link>
                     </div>
                     :

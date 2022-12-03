@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Row from "./WorkersTableRow";
 
+import { useDispatch, useSelector } from "react-redux";
 import { fetchWorkers } from "../../features/Workers/workersSlice";
-import * as Components from "../../components";
+
+import { useTranslation } from "react-i18next";
+
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
-import { Link } from "react-router-dom";
+import Row from "./WorkersTableRow";
+
 function Workers() {
+    const {t, i18n} = useTranslation();
     document.title = "Manager - Workers";
     const [queries, setQueries] = useState({
         search: ""
@@ -39,13 +42,13 @@ function Workers() {
             <div className="table_container">
                 <div className="table_header">
                     <div className="main_column">
-                        <p>Worker</p>
+                        <p>{t("worker")}</p>
                     </div>
                     <div className="tag_column">
-                        <p>Access Level</p>
+                        <p>{t("accessLevel")}</p>
                     </div>
                     <div className="main_column">
-                        <p>Contact Details</p>
+                        <p>{t("contact")}</p>
                     </div>
                 </div>
                 {!response.loading && response.workers.length ? (

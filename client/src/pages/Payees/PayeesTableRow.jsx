@@ -1,13 +1,16 @@
 import React, { useContext } from "react"
 import { UserContext } from "../../App.jsx"
+import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { deletePayee } from "../../features/Payees/payeesSlice";
-import { Link } from "react-router-dom";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 function Row(props) {
     const { user } = useContext(UserContext);
     const { flag, setFlag } = props;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const { _id, name, phoneNumber, email, extraNotes } = props.payee;
 
@@ -21,7 +24,6 @@ function Row(props) {
                 <div className="main_column">
                     <div className="icon">
                     <FontAwesomeIcon icon="fa-solid fa-circle-user" size="2x"/>
-                        {/* <i className="fa-2x fa-solid fa-circle-user"></i> */}
                     </div>
                     <div className="stacked_cell">
                         <p className="large">{name}</p>
@@ -42,11 +44,9 @@ function Row(props) {
                     <div className="actions_column">
                         <Link to={`/payees/${_id}/edit`}>
                         <FontAwesomeIcon icon="fa-solid fa-pen" size="lg"/>
-                            {/* <i className="fa-solid fa-pen"></i> */}
                             </Link>
                         <Link to="/payees/" onClick={deleteThisPayee}>
                         <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg"/>
-                            {/* <i className="fa-solid fa-trash-can"></i> */}
                             </Link>
                     </div>
                     :

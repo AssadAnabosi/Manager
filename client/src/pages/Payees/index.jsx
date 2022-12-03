@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
+import { fetchPayees } from "../../features/Payees/payeesSlice";
+
+import { useTranslation } from "react-i18next";
+
+import * as Containers from "../../containers";
+import Loading from "../../components/Loading";
 import Row from "./PayeesTableRow";
 
-import { Link } from "react-router-dom";
-import * as Components from "../../components";
-import * as Containers from "../../containers";
-import { fetchPayees } from "../../features/Payees/payeesSlice";
-import Loading from "../../components/Loading";
 function Payees() {
+    const { t, i18n } = useTranslation();
     document.title = "Manager - Payees";
     const dispatch = useDispatch();
     const [queries, setQueries] = useState({
@@ -41,13 +44,13 @@ function Payees() {
             <div className="table_container">
                 <div className="table_header">
                     <div className="main_column">
-                        <p>Payee</p>
+                        <p>{t("payee")}</p>
                     </div>
                     <div className="main_column">
-                        <p>Contact Details</p>
+                        <p>{t("contact")}</p>
                     </div>
                     <div className="notes_column">
-                        <p>Extra Notes</p>
+                        <p>{t("extraNotes")}</p>
                     </div>
                 </div>
                 {!response.loading && response.payees.length ? (

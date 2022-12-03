@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLogs } from "../../features/Logs/logsSlice";
+
+import { useTranslation } from "react-i18next";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
 import Row from "./LogsTableRow";
+
 import "./LogsTable.scss";
 
-
 const Logs = () => {
+    const {t, i18n} = useTranslation();
     document.title = "Manager - Logs"
     const dispatch = useDispatch();
 
@@ -31,7 +35,7 @@ const Logs = () => {
 
     const response = useSelector((state) => state.logs);
 
-    let titles = ["Days Count:", "Payments Total: ", "OTV Total:"]
+    let titles = [`${t("daysCount")}`, `${t("paymentsTotal")}`, `${t("otvTotal")}`]
     let values = [response.logs.count, response.logs.paymentsSum, response.logs.OTVSum];
 
     function createRow(log) {
@@ -60,19 +64,19 @@ const Logs = () => {
             <div className="table_container">
                 <div className="table_header">
                     <div className="main_column">
-                        <p>Log</p>
+                        <p>{t("log")}</p>
                     </div>
                     <div className="tag_column">
-                        <p>Attendance</p>
+                        <p>{t("attendance")}</p>
                     </div>
                     <div className="time_column">
-                        <p>Working Time</p>
+                        <p>{t("workingTime")}</p>
                     </div>
                     <div className="number_column">
-                        <p>Payment</p>
+                        <p>{t("payment")}</p>
                     </div>
                     <div className="notes_column">
-                        <p>Extra Notes</p>
+                        <p>{t("extraNotes")}</p>
                     </div>
                 </div>
                 {!response.loading && response.logs.logs && response.logs.logs.length ? (

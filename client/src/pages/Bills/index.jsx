@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+import { fetchBills, deleteManyBills } from "../../features/Bills/billsSlice";
+
+import { useTranslation } from "react-i18next";
+
+import * as Containers from "../../containers";
+import Loading from "../../components/Loading";
 import Row from "./BillsTableRow";
 
-import { fetchBills, deleteManyBills } from "../../features/Bills/billsSlice";
-import * as Containers from "../../containers";
-
-import Loading from "../../components/Loading";
-
 function Bills() {
+    const {t, i18n} = useTranslation();
     document.title = "Manager - Bills";
     const today = new Date();
     const [queries, setQueries] = useState({
@@ -41,7 +44,7 @@ function Bills() {
         setFlag(!flag);
     }
 
-    let titles = ["Sum of Range", "Sum of all Time", "-"];
+    let titles = [`${t("sumRange")}`, `${t("sumAllTime")}`, "-"];
     let values = [`₪${response.bills.sum}`, `₪${response.bills.sumAllTime}`, "-"];
     return (
         <>
@@ -59,16 +62,16 @@ function Bills() {
             <div className="table_container">
                 <div className="table_header">
                     <div className="main_column">
-                        <p>Date</p>
+                        <p>{t("date")}</p>
                     </div>
                     <div className="number_column">
-                        <p>Value</p>
+                        <p>{t("value")}</p>
                     </div>
                     <div className="notes_column">
-                        <p>Description</p>
+                        <p>{t("description")}</p>
                     </div>
                     <div className="notes_column">
-                        <p>Extra Notes</p>
+                        <p>{t("extraNotes")}</p>
                     </div>
                 </div>
                 {!response.loading && response.bills.bills && response.bills.bills.length ? (

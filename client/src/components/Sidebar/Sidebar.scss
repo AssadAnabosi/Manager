@@ -20,10 +20,47 @@
 
 .nav_logo {
     color: black;
-    font-size: 2.3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .lang {
+        padding-right: 10px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+
+        button {
+            background-color: transparent;
+            width: 50px;
+            height: 25px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 1px solid var(--gray-color);
+            border-radius: 10px;
+
+            transition: .3s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                color: var(--white-color);
+                background-color: var(--primary-color);
+            }
+        }
+
+        button.active {
+            color: var(--white-color);
+            background-color: var(--primary-color);
+        }
+    }
+
+    h1 {
+        font-size: 2.3rem;
+        font-weight: bold;
+    }
+
     margin-top: 30px;
     margin-left: 30px;
-    font-weight: bold;
 }
 
 .nav_menu {
@@ -49,6 +86,7 @@
         background-color: var(--highlight-color);
         border-radius: 10px;
     }
+
     span {
         width: 35px;
     }
@@ -70,6 +108,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     span {
         color: var(--white-color);
     }
@@ -94,12 +133,12 @@
     }
 }
 
-.lower_container{
+.lower_container {
     display: flex;
     flex-direction: column;
 }
 
-.copyrights{
+.copyrights {
     display: flex;
     justify-content: space-around;
     align-items: center;

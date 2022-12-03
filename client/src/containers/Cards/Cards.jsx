@@ -1,7 +1,6 @@
 import React from "react"
 import "./Cards.scss";
 
-
 const Cards = (props) => {
     const titles = props.titles || ["-", "-", "-"]
     const values = props.values || ["-", "-", "-"]

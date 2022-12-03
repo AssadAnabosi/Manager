@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import Row from "./ChequesTableRow";
 import { fetchCheques } from "../../features/Cheques/chequesSlice";
+
+import { useTranslation } from "react-i18next";
+
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
+import Row from "./ChequesTableRow";
+
 function Cheques() {
+    const { t, i18n } = useTranslation();
     document.title = "Manager - Cheques";
     const dispatch = useDispatch();
     const today = new Date();
@@ -33,7 +39,7 @@ function Cheques() {
         />
         );
     }
-    let titles = ["Total:", "-", "-"];
+    let titles = [`${t("total")}`, "-", "-"];
     let values = [`₪${response.cheques.sum}`, "-", "-"];
     console.log(response.cheques.cheques)
     return (
@@ -51,16 +57,16 @@ function Cheques() {
             <div className="table_container">
                 <div className="table_header">
                     <div className="number_column">
-                        <p>Serial</p>
+                        <p>{t("serial")}</p>
                     </div>
                     <div className="main_column">
-                        <p>Cheque Details</p>
+                        <p>{t("chequeDetails")}</p>
                     </div>
                     <div className="number_column">
-                        <p>Value</p>
+                        <p>{t("value")}</p>
                     </div>
                     <div className="notes_column">
-                        <p>Description</p>
+                        <p>{t("description")}</p>
                     </div>
                 </div>
                 {!response.loading && response.cheques.cheques && response.cheques.cheques.length ? (

@@ -1,11 +1,17 @@
 import React, { useContext } from "react"
 import { UserContext } from "../../App.jsx"
+import { Link } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { deleteCheque } from "../../features/Cheques/chequesSlice";
-import { Link } from "react-router-dom";
+
+import { useTranslation } from "react-i18next";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./ChequesTableRow.scss";
+
 function Row(props) {
+    const { t, i18n } = useTranslation();
     const { user } = useContext(UserContext);
     const { flag, setFlag } = props;
     const dispatch = useDispatch()
@@ -13,7 +19,19 @@ function Row(props) {
     let name = props.name;
     let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     let day = new Date(dueDate).getDay();
-    let dateString = new Date(dueDate).toLocaleDateString();
+    let dateString = formatDate(new Date(dueDate));
+
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return [
+            padTo2Digits(date.getDate()),
+            padTo2Digits(date.getMonth() + 1),
+            date.getFullYear(),
+        ].join('/');
+    }
 
     const deleteThisCheque = () => {
         dispatch(deleteCheque(_id));
@@ -27,12 +45,11 @@ function Row(props) {
                 </div>
                 <div className="main_column">
                     <div className="icon">
-                    <FontAwesomeIcon icon="fa-solid fa-money-check" size="2x"/>
-                        {/* <i className="fa-2x fa-solid fa-file-invoice"></i> */}
+                        <FontAwesomeIcon icon="fa-solid fa-money-check" size="2x" />
                     </div>
                     <div className="stacked_cell">
                         <p className="large">{name}</p>
-                        <p className="small">{`${days[day]}, ${dateString}`}</p>
+                        <p className="small">{`${t(days[day])}, ${dateString}`}</p>
                     </div>
                 </div>
                 <div className="number_column">
@@ -47,11 +64,9 @@ function Row(props) {
                     <div className="actions_column">
                         <Link to={`/cheques/${_id}/edit`}>
                             <FontAwesomeIcon icon="fa-solid fa-pen" size="lg" />
-                            {/* <i className="fa-lg fa-solid fa-pen"></i> */}
                         </Link>
                         <Link to="/cheques/" onClick={deleteThisCheque}>
                             <FontAwesomeIcon icon="fa-solid fa-trash-can" size="lg" />
-                            {/* <i className="ga-lg fa-solid fa-trash-can"></i> */}
                         </Link>
                     </div>
                     :
