@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "i18next": "^22.0.6",
+    "manager-api": "file:..",
     "manager-server": "file:..",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
