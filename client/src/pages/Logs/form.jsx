@@ -59,6 +59,7 @@ const LogForm = () => {
 
     const { loading, workers } = useSelector((state) => state.workers);
     const { message, logs, error } = useSelector((state) => state.logs);
+    const logsLoading = useSelector((state) => state.logs.loading);
     const name = logs?.worker?.name || "";
 
     const clearState = () => {
@@ -104,6 +105,7 @@ const LogForm = () => {
         <>
             <Containers.FormsHeader title="logs" />
             {loading && <Loading />}
+            {logsLoading && <Loading />}
             <section className="form_container">
                 <div className="form_title">
                     <p>

@@ -54,6 +54,7 @@ const ChequeForm = () => {
 
     const { loading, payees } = useSelector((state) => state.payees);
     const { message, cheques, error } = useSelector(state => state.cheques)
+    const chequesLoading = useSelector(state => state.cheques.loading);
 
     const clearState = () => {
         setData({ ...initialState });
@@ -94,6 +95,7 @@ const ChequeForm = () => {
         <>
             <Containers.FormsHeader title="cheques" />
             {loading && <Loading />}
+            {chequesLoading && <Loading />}
             <section className="form_container">
                 <div className="form_title">
                     <p>
