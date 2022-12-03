@@ -1,0 +1,21 @@
+.date_time_row {
+    display: grid;
+    grid-template-columns: 35% 30% 30%;
+    justify-content: space-between;
+}
+
+.checkbox_row{
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    input {
+        zoom: 1.5;
+    }
+
+    p {
+        font-size: 1em;
+        font-weight: 600;
+    }
+}

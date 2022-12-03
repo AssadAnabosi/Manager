@@ -1,0 +1,13 @@
+.content_container {
+    width: 100%;
+    margin: 25px;
+    z-index: 998;
+}
+
+.flex {
+    display: flex;
+}
+
+input, textarea, select {
+    color: var(--input-text-color);
+}

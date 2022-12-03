@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;300;400&display=swap');
+
+:root {
+    --font-base: 'Encode Sans Expanded', sans-serif;
+    --primary-color: #434CE6;
+    --black-color: #060B15;
+    --gray-color: rgba(0, 0, 0, 0.1);
+    --highlight-color: #ECF3FE;
+    --white-color: #FFFDFA;
+    --input-text-color: #525152;
+    --input-background-color: #F7F7F7;
+
+}
+
+*, head {
+    margin: 0;
+    padding: 0;
+    font-family: 'Encode Sans Expanded', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--white-color);
+}
+
+#root {
+  width: 100%;
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black-color);
+}
+
+h1, p {
+  color: var(--black-color);
+}

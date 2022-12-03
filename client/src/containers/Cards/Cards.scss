@@ -1,0 +1,46 @@
+.cards_container {
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-content: space-between;
+    z-index: 998;
+    *{
+        z-index: 998;
+    }
+    .card {
+        height: 150px;
+        border: 2px solid var(--gray-color);
+        border-radius: 10px;
+
+        .title {
+            font-weight: 600;
+            padding: 20px;
+            font-size: 1.5em;
+            padding-bottom: 20px;
+        }
+
+        .value {
+            padding-left: 20px;
+            font-size: 2em;
+        }
+    }
+
+    .solo_card {
+        height: 150px;
+        width: 450px;
+        border: 2px solid var(--gray-color);
+        border-radius: 10px;
+
+        .title {
+            font-weight: 600;
+            padding: 20px;
+            font-size: 1.5em;
+            padding-bottom: 20px;
+        }
+
+        .value {
+            padding-left: 20px;
+            font-size: 2em;
+        }
+    }
+}

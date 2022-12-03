@@ -1,0 +1,46 @@
+.two_inputs_equal_row {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    justify-content: space-between;
+
+    .username_box {
+        span >p > label {
+            margin-top: 300px;
+        }
+        span.feedback {
+            position: relative;
+            margin-right: 10px;
+        }
+
+        span.valid{
+            color: green;
+        }
+        span.invalid {
+            color: red;
+        }
+        p.feedback{
+            position: absolute;
+            padding-left: 10px;
+            color: var(--input-text-color);
+        }
+    }
+}
+.slider_container {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    p {
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 0.85em;
+    }
+    .slider {
+        width: 90%;
+        height: 10px;
+        outline: none;
+    }
+}
+
+#invalid {
+    border-color: red;
+}

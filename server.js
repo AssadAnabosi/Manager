@@ -174,7 +174,11 @@ app.use((req, res, next) => {
 //	API
 app.use("/api", APIRoutes)
 
-
+//	Serving the Front-End
+app.use(express.static("client/build"));
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 // E R R O R
 app.use((err, req, res, next) => {
