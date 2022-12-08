@@ -45,7 +45,7 @@ export const All = async (req, res, next) => {
 				$project: { _id: 1, serial: 1, dueDate: 1, value: 1, description: 1, "payee.name": 1, "payee._id": 1, isCancelled: 1, isDeleted: 1 }
 			},
 		])
-		.sort({ dueDate: -1, serial: 1 })
+		.sort({ dueDate: 1, serial: 1 })
 	const _id = cheques.map(({ _id }) => _id)
 	let sum = await Cheque.aggregate([
 		{
