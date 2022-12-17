@@ -6,11 +6,12 @@ import { useDispatch } from "react-redux";
 import { deleteBill } from "../../features/Bills/billsSlice";
 
 import { useTranslation } from "react-i18next";
+import { dateFormatter } from "../../formatters.js";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Row(props) {
-    const {t, i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
     const { user } = useContext(UserContext);
     const { flag, setFlag } = props;
     const dispatch = useDispatch();
@@ -18,19 +19,8 @@ function Row(props) {
     const { _id, date, value, description, extraNotes } = props.bill;
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     let day = new Date(date).getDay();
-    let dateString = formatDate(new Date(date));
+    let dateString = dateFormatter(new Date(date));
 
-    function padTo2Digits(num) {
-        return num.toString().padStart(2, '0');
-    }
-
-    function formatDate(date) {
-        return [
-            padTo2Digits(date.getDate()),
-            padTo2Digits(date.getMonth() + 1),
-            date.getFullYear(),
-        ].join('/');
-    }
 
     const deleteThisBill = () => {
         dispatch(deleteBill(_id));

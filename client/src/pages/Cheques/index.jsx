@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCheques } from "../../features/Cheques/chequesSlice";
 
 import { useTranslation } from "react-i18next";
+import { currencyFormatter } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -40,7 +41,7 @@ function Cheques() {
         );
     }
     let titles = [`${t("total")}`, "-", "-"];
-    let values = [`₪${response.cheques.sum}`, "-", "-"];
+    let values = [`${currencyFormatter(response.cheques.sum)}`, "-", "-"];
     console.log(response.cheques.cheques)
     return (
         <>

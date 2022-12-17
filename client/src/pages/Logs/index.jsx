@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLogs } from "../../features/Logs/logsSlice";
 
 import { useTranslation } from "react-i18next";
+import { currencyFormatter } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -36,7 +37,7 @@ const Logs = () => {
     const response = useSelector((state) => state.logs);
 
     let titles = [`${t("daysCount")}`, `${t("paymentsTotal")}`, `${t("otvTotal")}`]
-    let values = [response.logs.count, response.logs.paymentsSum, response.logs.OTVSum];
+    let values = [response.logs.count, currencyFormatter(response.logs.paymentsSum), response.logs.OTVSum];
 
     function createRow(log) {
         return (<Row

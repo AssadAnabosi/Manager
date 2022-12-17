@@ -6,8 +6,10 @@ import { useDispatch } from "react-redux";
 import { deleteCheque } from "../../features/Cheques/chequesSlice";
 
 import { useTranslation } from "react-i18next";
+import { dateFormatter } from "../../formatters.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import "./ChequesTableRow.scss";
 
 function Row(props) {
@@ -19,19 +21,7 @@ function Row(props) {
     let name = props.name;
     let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     let day = new Date(dueDate).getDay();
-    let dateString = formatDate(new Date(dueDate));
-
-    function padTo2Digits(num) {
-        return num.toString().padStart(2, '0');
-    }
-
-    function formatDate(date) {
-        return [
-            padTo2Digits(date.getDate()),
-            padTo2Digits(date.getMonth() + 1),
-            date.getFullYear(),
-        ].join('/');
-    }
+    let dateString = dateFormatter(new Date(dueDate));
 
     const deleteThisCheque = () => {
         dispatch(deleteCheque(_id));

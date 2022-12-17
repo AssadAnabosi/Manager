@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchBills, deleteManyBills } from "../../features/Bills/billsSlice";
 
 import { useTranslation } from "react-i18next";
+import { currencyFormatter } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -45,7 +46,7 @@ function Bills() {
     }
 
     let titles = [`${t("sumRange")}`, `${t("sumAllTime")}`, "-"];
-    let values = [`₪${response.bills.sum}`, `₪${response.bills.sumAllTime}`, "-"];
+    let values = [`${currencyFormatter(response.bills.sum)}`, `${currencyFormatter(response.bills.sumAllTime)}`, "-"];
     return (
         <>
             <Containers.Header title="bills" />
