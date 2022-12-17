@@ -19,7 +19,7 @@ import {
 } from "./Elements";
 
 const Login = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Login";
     const dispatch = useDispatch();
     const navigate = useNavigate();

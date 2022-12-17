@@ -17,9 +17,8 @@ import {
 } from "./Elements";
 
 const ChangePassword = () => {
-    const { t, i18n } = useTranslation();
-    const year = new Date().getFullYear();
-    const {user} = useContext(UserContext)
+    const { t } = useTranslation();
+    const { user } = useContext(UserContext)
     document.title = "Manager - Change Password";
     const [data, setData] = useState({
         oldPassword: "",

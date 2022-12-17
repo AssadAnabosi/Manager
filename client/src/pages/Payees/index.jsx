@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import Row from "./PayeesTableRow";
 
 function Payees() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Payees";
     const dispatch = useDispatch();
     const [queries, setQueries] = useState({

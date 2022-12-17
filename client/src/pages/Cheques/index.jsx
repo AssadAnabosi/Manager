@@ -11,7 +11,7 @@ import Loading from "../../components/Loading";
 import Row from "./ChequesTableRow";
 
 function Cheques() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Cheques";
     const dispatch = useDispatch();
     const today = new Date();

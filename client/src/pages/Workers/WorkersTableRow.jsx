@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./WorkersTableRow.scss";
 
 function Row(props) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { user } = useContext(UserContext);
     const { flag, setFlag } = props;
     const dispatch = useDispatch();

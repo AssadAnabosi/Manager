@@ -11,7 +11,7 @@ import Loading from "../../components/Loading";
 import Row from "./BillsTableRow";
 
 function Bills() {
-    const {t, i18n} = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Bills";
     const today = new Date();
     const [queries, setQueries] = useState({

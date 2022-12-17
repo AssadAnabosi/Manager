@@ -11,7 +11,7 @@ import Loading from "../../components/Loading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const PayeeForm = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     // payee id
     let { id } = useParams();
     document.title = id ? "Edit Payee" : "New Payee";
@@ -51,7 +51,7 @@ const PayeeForm = () => {
     const clearState = () => {
         setData({ ...initialState });
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (id) {

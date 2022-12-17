@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import Row from "./WorkersTableRow";
 
 function Workers() {
-    const {t, i18n} = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Workers";
     const [queries, setQueries] = useState({
         search: ""
@@ -36,7 +36,7 @@ function Workers() {
     return (
         <>
             <Containers.Header title="workers" />
-            <Containers.SearchQuery handleQueriesChange={handleQueriesChange}/>
+            <Containers.SearchQuery handleQueriesChange={handleQueriesChange} />
             {response.loading && <Loading />}
             {!response.loading && response.error ? <div>Error: {response.error}</div> : null}
             <div className="table_container">

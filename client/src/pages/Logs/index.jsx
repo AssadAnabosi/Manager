@@ -13,7 +13,7 @@ import Row from "./LogsTableRow";
 import "./LogsTable.scss";
 
 const Logs = () => {
-    const {t, i18n} = useTranslation();
+    const { t } = useTranslation();
     document.title = "Manager - Logs"
     const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ const Logs = () => {
         />
         );
     }
-    
+
     return (
         <>
             <Containers.Header title="logs" />

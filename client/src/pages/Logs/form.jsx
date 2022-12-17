@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./LogsForm.scss";
 
 const LogForm = () => {
-    const {t, i18n} = useTranslation();
+    const { t } = useTranslation();
     // log id
     let { id } = useParams();
     document.title = id ? "Manager - Edit Log" : "Manager - New Log";

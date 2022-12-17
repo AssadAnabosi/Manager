@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./WorkersForm.scss";
 
 const WorkerForm = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     // worker id
     let { id } = useParams();
     const { user } = useContext(UserContext);
