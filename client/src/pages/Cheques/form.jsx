@@ -6,6 +6,7 @@ import { fetchPayees } from "../../features/Payees/payeesSlice";
 import { findCheque, createCheque, updateCheque } from "../../features/Cheques/chequesSlice";
 
 import { useTranslation } from "react-i18next";
+import { padTo2Digits } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -20,7 +21,7 @@ const ChequeForm = () => {
     const date = new Date();
 
     const initialState = {
-        dueDate: String(date.getFullYear()) + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + 30,
+        dueDate: String(date.getFullYear()) + '-' + padTo2Digits(String(date.getMonth() + 1)) + '-' + 30,
         payee: "",
         serial: "",
         isCancelled: false,

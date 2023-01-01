@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCheques } from "../../features/Cheques/chequesSlice";
 
 import { useTranslation } from "react-i18next";
-import { currencyFormatter } from "../../formatters";
+import { currencyFormatter, padTo2Digits } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -16,8 +16,8 @@ function Cheques() {
     const dispatch = useDispatch();
     const today = new Date();
     const [queries, setQueries] = useState({
-        since: `${today.getFullYear()}-${today.getMonth() + 1}-01`,
-        till: `${today.getFullYear()}-${today.getMonth() + 1}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
+        since: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-01`,
+        till: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
         search: ""
     });
     const [flag, setFlag] = useState(true);
@@ -42,7 +42,6 @@ function Cheques() {
     }
     let titles = [`${t("total")}`, "-", "-"];
     let values = [`${currencyFormatter(response.cheques.sum)}`, "-", "-"];
-    console.log(response.cheques.cheques)
     return (
         <>
             <Containers.Header title="cheques" />

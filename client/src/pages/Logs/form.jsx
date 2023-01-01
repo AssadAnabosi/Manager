@@ -6,6 +6,7 @@ import { fetchWorkers } from "../../features/Workers/workersSlice";
 import { findLog, createLog, updateLog } from "../../features/Logs/logsSlice";
 
 import { useTranslation } from "react-i18next";
+import { padTo2Digits } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -22,7 +23,7 @@ const LogForm = () => {
     const date = new Date();
 
     const initialState = {
-        date: String(date.getFullYear()) + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0'),
+        date: String(date.getFullYear()) + '-' + padTo2Digits(String(date.getMonth() + 1)) + '-' + padTo2Digits(String(date.getDate())),
         worker: "",
         payment: 0,
         isAbsence: false,

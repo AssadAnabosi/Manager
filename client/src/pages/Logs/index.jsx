@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLogs } from "../../features/Logs/logsSlice";
 
 import { useTranslation } from "react-i18next";
-import { currencyFormatter } from "../../formatters";
+import { currencyFormatter, padTo2Digits } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -19,8 +19,8 @@ const Logs = () => {
 
     const today = new Date();
     const [queries, setQueries] = useState({
-        since: `${today.getFullYear()}-${today.getMonth() + 1}-01`,
-        till: `${today.getFullYear()}-${today.getMonth() + 1}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
+        since: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-01`,
+        till: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
         search: ""
     });
 

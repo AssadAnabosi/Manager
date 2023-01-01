@@ -6,7 +6,7 @@ export const currencyFormatter = (amount) => {
     return formatter.format(amount);
 }
 
-const padTo2Digits = (num) => {
+export const padTo2Digits = (num) => {
     return num.toString().padStart(2, '0');
 }
 

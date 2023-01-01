@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchBills, deleteManyBills } from "../../features/Bills/billsSlice";
 
 import { useTranslation } from "react-i18next";
+import { padTo2Digits } from "../../formatters.js";
 import { currencyFormatter } from "../../formatters";
 
 import * as Containers from "../../containers";
@@ -15,8 +16,8 @@ function Bills() {
     document.title = "Manager - Bills";
     const today = new Date();
     const [queries, setQueries] = useState({
-        since: `${today.getFullYear()}-${today.getMonth() + 1}-01`,
-        till: `${today.getFullYear()}-${today.getMonth() + 1}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
+        since: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-01`,
+        till: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
         search: ""
     });
     const [flag, setFlag] = useState(true);

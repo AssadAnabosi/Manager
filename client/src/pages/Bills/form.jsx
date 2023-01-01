@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findBill, createBill, updateBill } from "../../features/Bills/billsSlice";
 
 import { useTranslation } from "react-i18next";
+import { padTo2Digits } from "../../formatters";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -18,7 +19,7 @@ const BillForm = () => {
 
     const date = new Date();
     const initialState = {
-        date: String(date.getFullYear()) + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0"),
+        date: String(date.getFullYear()) + "-" + padTo2Digits(String(date.getMonth() + 1)) + "-" + padTo2Digits(String(date.getDate())),
         value: "",
         description: "",
         extraNotes: "",
