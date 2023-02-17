@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { findBill, createBill, updateBill } from "../../features/Bills/billsSlice";
 
 import { useTranslation } from "react-i18next";
-import { padTo2Digits } from "../../formatters";
+import { getToday } from "../../utils/date.util";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -17,9 +17,8 @@ const BillForm = () => {
     let { id } = useParams();
     document.title = id ? "Manager - Edit Bill" : "Manager - New Bill";
 
-    const date = new Date();
     const initialState = {
-        date: String(date.getFullYear()) + "-" + padTo2Digits(String(date.getMonth() + 1)) + "-" + padTo2Digits(String(date.getDate())),
+        date: `${getToday()}`,
         value: "",
         description: "",
         extraNotes: "",

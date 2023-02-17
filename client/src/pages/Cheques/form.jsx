@@ -6,7 +6,7 @@ import { fetchPayees } from "../../features/Payees/payeesSlice";
 import { findCheque, createCheque, updateCheque } from "../../features/Cheques/chequesSlice";
 
 import { useTranslation } from "react-i18next";
-import { padTo2Digits } from "../../formatters";
+import { getLastDayOfCurrentMonth } from "../../utils/date.util";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -18,10 +18,8 @@ const ChequeForm = () => {
     let { id } = useParams();
     document.title = id ? "Manager - Edit Cheque" : "Manager - New Cheque";
 
-    const date = new Date();
-
     const initialState = {
-        dueDate: String(date.getFullYear()) + '-' + padTo2Digits(String(date.getMonth() + 1)) + '-' + 30,
+        dueDate: `${getLastDayOfCurrentMonth()}`,
         payee: "",
         serial: "",
         isCancelled: false,

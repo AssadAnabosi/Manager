@@ -6,7 +6,7 @@ import { fetchWorkers } from "../../features/Workers/workersSlice";
 import { findLog, createLog, updateLog } from "../../features/Logs/logsSlice";
 
 import { useTranslation } from "react-i18next";
-import { padTo2Digits } from "../../formatters";
+import { getToday } from "../../utils/date.util";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -20,10 +20,8 @@ const LogForm = () => {
     let { id } = useParams();
     document.title = id ? "Manager - Edit Log" : "Manager - New Log";
 
-    const date = new Date();
-
     const initialState = {
-        date: String(date.getFullYear()) + '-' + padTo2Digits(String(date.getMonth() + 1)) + '-' + padTo2Digits(String(date.getDate())),
+        date: `${getToday()}`,
         worker: "",
         payment: 0,
         isAbsence: false,

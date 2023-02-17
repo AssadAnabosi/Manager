@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLogs } from "../../features/Logs/logsSlice";
 
 import { useTranslation } from "react-i18next";
-import { currencyFormatter, padTo2Digits } from "../../formatters";
+import { currencyFormatter } from "../../formatters";
+import { getFirstDayOfCurrentMonth, getLastDayOfCurrentMonth } from "../../utils/date.util";
 
 import * as Containers from "../../containers";
 import Loading from "../../components/Loading";
@@ -17,10 +18,9 @@ const Logs = () => {
     document.title = "Manager - Logs"
     const dispatch = useDispatch();
 
-    const today = new Date();
     const [queries, setQueries] = useState({
-        since: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-01`,
-        till: `${today.getFullYear()}-${padTo2Digits(today.getMonth() + 1)}-${new Date(today.getFullYear(), today.getMonth() - 1, 0).getDate()}`,
+        since: `${getFirstDayOfCurrentMonth()}`,
+        till: `${getLastDayOfCurrentMonth()}`,
         search: ""
     });
 
