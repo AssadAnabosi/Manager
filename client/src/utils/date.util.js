@@ -8,7 +8,7 @@ export const getFirstDayOfCurrentMonth = () => {
 };
 
 export const get30thDayOfCurrentMonth = () => {
-    const date = new Date("2020-3-01");
+    const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth();
     let day = "";
