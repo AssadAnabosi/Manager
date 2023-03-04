@@ -11,6 +11,9 @@ import chequesRoutes from "./routes/cheques.js";
 import usersRoutes from "./routes/users.js";
 
 //	Routes
+router.get("/health", (req, res)=>{
+    return res.sendStatus(200);
+});
 router.use("/bills",isLoggedIn, isSpec, billsRoutes);
 router.use("/payees",isLoggedIn, isSpec, payeesRoutes);
 router.use("/workers",isLoggedIn, workersRoutes);
