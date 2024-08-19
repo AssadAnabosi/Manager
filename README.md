@@ -1,4 +1,5 @@
-# Manager App
+# :no_entry: [DEPRECATED] Active at [Manager-2.0](https://github.com/assadanabosi/manager-2.0)
+# Manager App 
 
 ## Manager App Quick walk-through:
 * MERN Stack Application
